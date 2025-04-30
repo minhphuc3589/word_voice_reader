@@ -1,10 +1,33 @@
 from tkinter import filedialog
 
-def save_file_name(path: str, data: str) -> None:
-    with open(path, "a+") as file:
-        file.write(str)
+import os.path
+from exception.data_exception import *
 
-def get_data(path: str, split_char: str = " ") -> [{}]:
+def is_existed_file(path: str) -> bool:
+    return os.path.isfile(path)
+
+def create_file(path: str) -> bool:
+    try:
+        file = open(path, "x")
+        file.close()
+
+        return True
+    except:
+        print("create_file err")
+        return False
+
+def save_file(path: str, data: str) -> bool:
+    try:
+        with open(path, "a+") as file:
+            file.write(str)
+
+        return True
+
+    except:
+        print("save_file err")
+        return False
+
+def get_data(path: str, split_char: str = " ") -> list:
 
     opened_file_history = []
 
@@ -26,7 +49,8 @@ def get_data(path: str, split_char: str = " ") -> [{}]:
         return opened_file_history
 
     except:
-        print("get_data err")
+        raise GetDataError("File didn't exist")
+        
 
 def get_file_name() -> str:
     return filedialog.askopenfilename(

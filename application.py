@@ -22,7 +22,6 @@ class Application(Tk):
         self.font = ("Arial", 16)
 
         self.reader = voice_reader.VoiceReader()
-        self.file_handler = file_handler.FileHandler()
 
     def frame_history(self) -> None:
         frame = Frame(self, 
